@@ -8,8 +8,12 @@ from Log import *
 class CoinUtill:
     #기본 고정값 세팅 
     def __init__(self):
-        self.access_key = "PaYjlkxaG9pCorYxxNA896LYGfx1I18nXhMKaTjA"
-        self.secret_key = "O6dc1x8RVJ4xZLQFOtyGql6IxOWvjTxtypxnjDbm"
+        #self.access_key = "PaYjlkxaG9pCorYxxNA896LYGfx1I18nXhMKaTjA"
+        #self.secret_key = "O6dc1x8RVJ4xZLQFOtyGql6IxOWvjTxtypxnjDbm"
+        #우분투용
+        self.access_key = "sCkRMzkG0Bt9dxxLboWRlNmi983qydxGqxHxzMGo"
+        self.secret_key = "kw6tRqwVJYI4sttxKytRC1IERbgaFIeHvsRHCDnf"
+        
         self.requestURL = "https://api.upbit.com/v1/"
         self.limitMoney = 10000
         #라인 메신저 알림 토큰
