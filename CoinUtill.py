@@ -1,6 +1,7 @@
 
 import uuid
 import jwt
+import requests
 #기초 고정값 세팅 객체
 
 class CoinUtill:
@@ -10,7 +11,9 @@ class CoinUtill:
         self.secret_key = "O6dc1x8RVJ4xZLQFOtyGql6IxOWvjTxtypxnjDbm"
         self.requestURL = "https://api.upbit.com/v1/"
         self.limitMoney = 10000
-
+        #라인 메신저 알림 토큰
+        self.message_url = "https://notify-api.line.me/api/notify"
+        self.lineMessageToken = "BgWBqobOZRydM7qoXXRBxCr2B5Dm1spn4c1U7RSD0kc"
         #기준3만원씩 투자 
         self.orderMoney = 20000
 
@@ -36,6 +39,20 @@ class CoinUtill:
         authorize_token = 'Bearer {}'.format(jwt_token)
         headers = {"Authorization": authorize_token}
         return headers
+
+    #라인 메신저 보내기
+    def send_message(self,message):
+        response = requests.post(
+            self.message_url,
+            headers={
+                'Authorization' : 'Bearer ' + self.lineMessageToken
+            },
+            data = {
+                'message' : message
+            }
+        )
+
+        print(response.text)
 
     #init 변수 리턴
     def get_requestURL(self):

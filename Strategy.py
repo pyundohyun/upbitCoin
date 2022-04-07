@@ -576,6 +576,12 @@ class Strategy:
 
           #보유 코인인경우
           if CoinEvent().checkBuyCoin(coinName):
+               CoinUtill().send_message("이미 구매한 코인 서칭중....")
+               CoinUtill().send_message("구매한 코인명>>>"+coinName)
+               CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
+               CoinUtill().send_message("현재가격>>"+str(curPrice))
+               CoinUtill().send_message("현재 코인 수익률 >>>"+str(coinProfit))
+
                log.debug("이미 구매한 코인 서칭중....")
                log.debug("coinName>>>"+coinName)
                log.debug("basicPriceValue>>>"+str(basicPriceValue))
@@ -618,6 +624,12 @@ class Strategy:
           else:
               #log.debug("첫 구매할 코인 서칭중....")
               if(curPrice >= basicPriceValue):
+                CoinUtill().send_message("구매할 코인명>>>"+coinName)
+                CoinUtill().send_message("현재가격>>"+str(curPrice))
+                CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
+                CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
+                CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
+    
                 log.debug("구매할 코인명>>>"+coinName)
                 log.debug("현재가격>>"+str(curPrice))
                 log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
