@@ -630,34 +630,36 @@ class Strategy:
                 
                 #100이하는 0.5 차이면 삼
                 if(curPrice < 100 and curPrice >= 1):
-                    CoinUtill().send_message("구매할 코인명>>>"+coinName)
-                    CoinUtill().send_message("현재가격>>"+str(curPrice))
-                    CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
-                    CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
-                    CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
-        
-                    log.debug("구매할 코인명>>>"+coinName)
-                    log.debug("현재가격>>"+str(curPrice))
-                    log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
-                    log.debug("변동성 지수 >>"+str(kvalue))
-                    log.debug("차이>>"+str(curPrice-basicPriceValue))
                     if(diff <= -0.05 and diff > -0.07):
+                        CoinUtill().send_message("구매할 코인명>>>"+coinName)
+                        CoinUtill().send_message("현재가격>>"+str(curPrice))
+                        CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
+                        CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
+                        CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
+            
+                        log.debug("구매할 코인명>>>"+coinName)
+                        log.debug("현재가격>>"+str(curPrice))
+                        log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
+                        log.debug("변동성 지수 >>"+str(kvalue))
+                        log.debug("차이>>"+str(curPrice-basicPriceValue))
+
                         if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
                             CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
                 #100 이상은 5차이나면 삼 
                 elif(curPrice >= 100) :
-                    CoinUtill().send_message("구매할 코인명>>>"+coinName)
-                    CoinUtill().send_message("현재가격>>"+str(curPrice))
-                    CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
-                    CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
-                    CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
-        
-                    log.debug("구매할 코인명>>>"+coinName)
-                    log.debug("현재가격>>"+str(curPrice))
-                    log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
-                    log.debug("변동성 지수 >>"+str(kvalue))
-                    log.debug("차이>>"+str(curPrice-basicPriceValue))
                     if(diff <= -2 and diff > -4):
+                        CoinUtill().send_message("구매할 코인명>>>"+coinName)
+                        CoinUtill().send_message("현재가격>>"+str(curPrice))
+                        CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
+                        CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
+                        CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
+            
+                        log.debug("구매할 코인명>>>"+coinName)
+                        log.debug("현재가격>>"+str(curPrice))
+                        log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
+                        log.debug("변동성 지수 >>"+str(kvalue))
+                        log.debug("차이>>"+str(curPrice-basicPriceValue))
+
                         if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
                             #시장가로 주문
                             CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
