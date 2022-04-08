@@ -623,7 +623,7 @@ class Strategy:
 
           else:
               #log.debug("첫 구매할 코인 서칭중....")
-              if(curPrice >= basicPriceValue):
+              if(curPrice <= basicPriceValue):
                 CoinUtill().send_message("구매할 코인명>>>"+coinName)
                 CoinUtill().send_message("현재가격>>"+str(curPrice))
                 CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
