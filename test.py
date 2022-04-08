@@ -61,39 +61,39 @@ async def findCoin():
         log.debug("  ")
 
         #오전 8시 ~ 9시에 전량매도 
-        # if(int(endTime) < 900 and int(endTime) > 853):
-        CoinEvent.allSelCoin()
-        await asyncio.sleep(10) 
-        #손익분기 추출해서 엑셀저장
-        curTM = (datetime.today()).strftime("%Y%m%d")+str("0900")
-        beforeTM = (datetime.today() - timedelta(1)).strftime("%Y%m%d")+str("0900")
+        if(int(endTime) < 900 and int(endTime) > 853):
+            CoinEvent.allSelCoin()
+            await asyncio.sleep(10) 
+            #손익분기 추출해서 엑셀저장
+            curTM = (datetime.today()).strftime("%Y%m%d")+str("0900")
+            beforeTM = (datetime.today() - timedelta(1)).strftime("%Y%m%d")+str("0900")
 
-        #손익분기 엑셀안만들어졌으면 만듬
-        if(os.path.isfile("손익결과_"+beforeTM+"_"+curTM+".xlsx") == False):
-            try :
-                CoinEvent.getMyPaymentList()      
-            except Exception as Err:
-                log.debug('[[[[[[Error]]]]]] getMyPaymentList Error>>>'+str(Err))
-        # elif(int(endTime) < 853 and int(endTime) > 800):
-        #     #log.debug('휴식시간---------------- 8시 ~~~ 8시 53분')
-        #     print("휴식시간")
-        # else :
+            #손익분기 엑셀안만들어졌으면 만듬
+            if(os.path.isfile("profitAndSell_"+beforeTM+"_"+curTM+".xlsx") == False):
+                try :
+                   CoinEvent.getMyPaymentList()      
+                except Exception as Err:
+                    log.debug('[[[[[[Error]]]]]] getMyPaymentList Error>>>'+str(Err))
+        elif(int(endTime) < 853 and int(endTime) > 800):
+            #log.debug('휴식시간---------------- 8시 ~~~ 8시 53분')
+            print("휴식시간")
+        else :
             
-        #     # 내가만든 짬뽕전략
-        #     # for item in tickers:
-        #     #     #상승량 높은것만 추려서 확인
-        #     #     if(await Strategy.get_bigShort_coinList(item)):
-        #     #         #구매 코인찾기 둘다 비동기로 돌게함
-        #     #         await Strategy.goFindCoin(item)
-        #     #         #await asyncio.sleep(0.2)
-        #     #     #현재 구매 코인팔가격인지 확인
-        #     #     await Strategy.checkSellMyCoin(item)
+            # 내가만든 짬뽕전략
+            # for item in tickers:
+            #     #상승량 높은것만 추려서 확인
+            #     if(await Strategy.get_bigShort_coinList(item)):
+            #         #구매 코인찾기 둘다 비동기로 돌게함
+            #         await Strategy.goFindCoin(item)
+            #         #await asyncio.sleep(0.2)
+            #     #현재 구매 코인팔가격인지 확인
+            #     await Strategy.checkSellMyCoin(item)
 
-        #     #sleep(0.3)
+            #sleep(0.3)
             
-        #     #변동성 돌파전략으로 진행
-        #     for item in tickers:
-        #         Strategy.goBuyCoin(item)
+            #변동성 돌파전략으로 진행
+            for item in tickers:
+                Strategy.goBuyCoin(item)
 
         log.debug("  ")
         log.debug('[[[[[[[[[ 회전끝::: '+str(curTime)+']]]]]]]]]')
