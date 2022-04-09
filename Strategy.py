@@ -607,12 +607,12 @@ class Strategy:
                       log.debug("손실 퍼센트::>>>"+str(coinProfit))
                       CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")    
 
-                  elif(coinProfit >= 3.5):
+                  elif(coinProfit >= 4.2):
                       log.debug("예상치보다 많이오름, 익절!")
                       log.debug("구매했던 코인명>>>"+coinName)
                       log.debug("손실 퍼센트::>>>"+str(coinProfit))
                       CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")    
-                      
+
                else:
                   #가능성 적지만, 오르면 팔고 내리면 팔고 
                   if(coinProfit >= 3.5):
