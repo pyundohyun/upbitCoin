@@ -57,8 +57,8 @@ async def findCoin():
         #print('[[[[[[[[[편도 '+ str(cnt) +' 회전시작::: '+ str(curTime) +']]]]]]]]]')
         #print("  ")
 
-        log.debug('[[[[[[[[[편도 '+ str(cnt) +' 회전시작::: '+ str(curTime) +']]]]]]]]]')
-        log.debug("  ")
+        #log.debug('[[[[[[[[[편도 '+ str(cnt) +' 회전시작::: '+ str(curTime) +']]]]]]]]]')
+#        log.debug("  ")
 
         #오전 8시 ~ 9시에 전량매도 
         if(int(endTime) < 900 and int(endTime) > 853):
@@ -95,8 +95,8 @@ async def findCoin():
             for item in tickers:
                 Strategy.goBuyCoin(item)
 
-        log.debug("  ")
-        log.debug('[[[[[[[[[ 회전끝::: '+str(curTime)+']]]]]]]]]')
+#        log.debug("  ")
+#        log.debug('[[[[[[[[[ 회전끝::: '+str(curTime)+']]]]]]]]]')
 
         #print("  ")
         #print('[[[[[[[[[ 회전끝::: '+str(curTime)+']]]]]]]]]')

@@ -44,7 +44,7 @@ class CoinUtill:
 
     #라인 메신저 보내기
     def send_message(self,message):
-        log = Log().initLogger()
+        #log = Log().initLogger()
 
         response = requests.post(
             self.message_url,
@@ -55,7 +55,7 @@ class CoinUtill:
                 'message' : message
             }
         )
-        log.debug("라인>>>"+response.text)
+        #log.debug("라인>>>"+response.text)
 
     #init 변수 리턴
     def get_requestURL(self):
