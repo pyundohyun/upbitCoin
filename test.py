@@ -57,7 +57,7 @@ async def findCoin():
         #print('[[[[[[[[[편도 '+ str(cnt) +' 회전시작::: '+ str(curTime) +']]]]]]]]]')
         #print("  ")
 
-        log.debug('[[[[[[[[[11 '+ int(endTime))
+        log.debug(int(endTime))
 #        log.debug("  ")
 
         #오전 8시 ~ 9시에 전량매도 
