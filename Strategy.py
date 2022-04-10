@@ -115,7 +115,7 @@ class Strategy:
         orderPrice = 0
         #내 총알이 10만원 이하 일때 만원씩 투자
         #이상이면 3만원씩 투자 
-        if(float(CoinEvent().getMyChongal()) < 100000):
+        if(float(CoinEvent().getMyChongal()) < 150000):
            orderPrice = CoinUtill().get_limitMoney()
         else:
            orderPrice = CoinUtill().get_orderMoney()
