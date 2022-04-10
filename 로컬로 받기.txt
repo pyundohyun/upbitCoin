@@ -1,0 +1,1 @@
+scp -i C:/Users/dohyu/Downloads/ubuntu_pd_coin.pem ubuntu@ec2-54-245-61-10.us-west-2.compute.amazonaws.com:/home/ubuntu/upbitCoin/buyAndSell_20220408.log C:\Users\dohyu\OneDrive\Desktop\coin_pd
