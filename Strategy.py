@@ -634,14 +634,14 @@ class Strategy:
               #기준가 근처에서 사니까 손해가 더크다, 그전에 비등한 범위안에있는걸 사서 올리는게 이득일듯
                             
               if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
-                CoinUtill().send_message("이평선 높은 코인>>>"+coinName)
-                CoinUtill().send_message("현재가격>>"+str(curPrice))
-                CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
-                CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
-                CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
-                CoinUtill().send_message("현재가가 MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
-                CoinUtill().send_message("MA5>>"+str(MA5))
-                CoinUtill().send_message("MA14>>"+str(MA14))
+                    CoinUtill().send_message("이평선 높은 코인>>>"+coinName)
+                    CoinUtill().send_message("현재가격>>"+str(curPrice))
+                    CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
+                    CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
+                    CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
+                    CoinUtill().send_message("현재가가 MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
+                    CoinUtill().send_message("MA5>>"+str(MA5))
+                    CoinUtill().send_message("MA14>>"+str(MA14))
               
               if(curPrice <= basicPriceValue):
                 diff = curPrice-basicPriceValue
