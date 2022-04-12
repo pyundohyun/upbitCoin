@@ -666,11 +666,11 @@ class Strategy:
                         CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
                         CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
             
-                        log.debug("구매할 코인명>>>"+coinName)
-                        log.debug("현재가격>>"+str(curPrice))
-                        log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
-                        log.debug("변동성 지수 >>"+str(kvalue))
-                        log.debug("차이>>"+str(curPrice-basicPriceValue))
+                        # log.debug("구매할 코인명>>>"+coinName)
+                        # log.debug("현재가격>>"+str(curPrice))
+                        # log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
+                        # log.debug("변동성 지수 >>"+str(kvalue))
+                        # log.debug("차이>>"+str(curPrice-basicPriceValue))
 
                         CoinUtill().send_message("현재가가 MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
                         CoinUtill().send_message("MA5>>"+str(MA5))
