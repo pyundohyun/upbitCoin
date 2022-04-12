@@ -660,7 +660,7 @@ class Strategy:
                             CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
                 #100 이상은 5차이나면 삼 
                 elif(curPrice >= 100) :
-                    if(diff <= -2 and diff > -10):            
+                    #if(diff <= -2 and diff > -10):            
                         # log.debug("구매할 코인명>>>"+coinName)
                         # log.debug("현재가격>>"+str(curPrice))
                         # log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
@@ -671,9 +671,9 @@ class Strategy:
                         # CoinUtill().send_message("MA5>>"+str(MA5))
                         # CoinUtill().send_message("MA14>>"+str(MA14))
 
-                        if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
-                            #시장가로 주문
-                            CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
+                    if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
+                        #시장가로 주문
+                        CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
 
         except Exception as Err:
             log.debug('[[[[[[Error]]]]]] goBuyCoin Error>>>'+str(Err))
