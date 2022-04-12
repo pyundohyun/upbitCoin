@@ -633,7 +633,7 @@ class Strategy:
               #기준가보다 낮은값에 사서, 기준값 돌파 상향하면 파는 로직 
               #기준가 근처에서 사니까 손해가 더크다, 그전에 비등한 범위안에있는걸 사서 올리는게 이득일듯
                             
-              if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
+              if(MA5 >= MA14):
                     CoinUtill().send_message("이평선 높은 코인>>>"+coinName)
                     CoinUtill().send_message("현재가격>>"+str(curPrice))
                     CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
