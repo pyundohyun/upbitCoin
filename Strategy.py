@@ -158,7 +158,7 @@ class Strategy:
             #and firstVolume*1.2 < curVolume
             
             #500억 이상 누적 거래대금
-            if(diffPercent >= 0.1 and diffPercent <= 2.5 and vol24 >= 50000000000):
+            if(diffPercent >= -2.8 and diffPercent <= 2.5 and vol24 >= 50000000000):
             #if(firstClose < curClose and firstVolume*1.2 < curVolume):
                 #log.debug('get_bigShort_coinList 급등할예정 높음')
                 #log.debug('coinName >>'+coinName)
@@ -658,17 +658,17 @@ class Strategy:
               CoinUtill().send_message("MA5>>"+str(MA5))
               CoinUtill().send_message("MA14>>"+str(MA14))
               
-              if(curPrice >= basicPriceValue):
-                diff = curPrice-basicPriceValue
+              #if(curPrice >= basicPriceValue):
+              diff = curPrice-basicPriceValue
                 
                 #100이하는 0.5 차이면 삼
-                if(curPrice < 100 and curPrice >= 1):
-                    if(diff <= 0.05):
+              if(curPrice < 100 and curPrice >= 1):
+                    #if(diff <= 0.05):
                         if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
                             CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
                 #100 이상은 5차이나면 삼 
-                elif(curPrice >= 100) :
-                    if(diff <= 2):
+              elif(curPrice >= 100) :
+                    #if(diff <= 2):
                         if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
                             #시장가로 주문
                             CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
