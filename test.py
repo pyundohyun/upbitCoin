@@ -97,7 +97,7 @@ async def findCoin():
             #변동성 돌파전략으로 진행
             for item in tickers:
                 if(await Strategy.get_bigShort_coinList(item)):
-                   CoinUtill.send_message("[[[[[[[[[ 0 이상 코인::: "+str(item)+"]]]]]]]]]")
+                   #CoinUtill.send_message("[[[[[[[[[ 0 이상 코인::: "+str(item)+"]]]]]]]]]")
                    Strategy.goBuyCoin(item)
 
 #        log.debug("  ")

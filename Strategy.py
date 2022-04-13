@@ -143,7 +143,7 @@ class Strategy:
             
             #전일대비 상위권 코인 + 거래량 20프로 많은거 and firstVolume*1.2 < curVolume
             #and firstVolume*1.2 < curVolume
-            if(diffPercent >= 0):
+            if(diffPercent >= 0.1):
             #if(firstClose < curClose and firstVolume*1.2 < curVolume):
                 #log.debug('get_bigShort_coinList 급등할예정 높음')
                 #log.debug('coinName >>'+coinName)
