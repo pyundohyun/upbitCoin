@@ -140,7 +140,17 @@ class Strategy:
             curVolume = float(df.iloc[-1]['volume'])
             # log.debug('df>>>'+str(df))
             diffPercent = float(((curClose-firstClose)/curClose))*100
-            
+
+            # 24시간 누적 거래대금
+            utilInfo = CoinUtill()
+            requestURL = utilInfo.get_requestURL()
+            headers = {"Accept": "application/json"}
+            res = requests.request("GET", requestURL+"ticker?markets="+coinName, headers=headers)
+            log.debug(res.json())
+            data_dict = res.json() #리스트 안에 dict구조라… 이런 코드가 나왔습니다.
+            log.debug(data_dict) # 받아오는 데이터 확인(해당 사이트가면 자세히 정리해서 안내하고 있습니다.)
+            log.debug(data_dict['acc_trade_volume_24h'])
+
             #전일대비 상위권 코인 + 거래량 20프로 많은거 and firstVolume*1.2 < curVolume
             #and firstVolume*1.2 < curVolume
             if(diffPercent >= 0.1 and diffPercent <= 2.5):
