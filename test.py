@@ -93,7 +93,8 @@ async def findCoin():
             
             #변동성 돌파전략으로 진행
             for item in tickers:
-                Strategy.goBuyCoin(item)
+                if(await Strategy.get_bigShort_coinList(item)):
+                   Strategy.goBuyCoin(item)
 
 #        log.debug("  ")
 #        log.debug('[[[[[[[[[ 회전끝::: '+str(curTime)+']]]]]]]]]')
