@@ -57,8 +57,8 @@ async def findCoin():
         #print('[[[[[[[[[편도 '+ str(cnt) +' 회전시작::: '+ str(curTime) +']]]]]]]]]')
         #print("  ")
 
-        #log.debug('[[[[[[[[[편도 '+ str(cnt) +' 회전시작::: '+ str(curTime) +']]]]]]]]]')
-        #log.debug("  ")
+        log.debug('[[[[[[[[[편도 '+ str(cnt) +' 회전시작::: '+ str(curTime) +']]]]]]]]]')
+        log.debug("  ")
         CoinUtill.send_message("[[[[[[[[[편도 "+ str(cnt) +" 회전시작::: "+ str(curTime) +"]]]]]]]]]")
 
         #오전 8시 ~ 9시에 전량매도 
