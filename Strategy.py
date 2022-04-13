@@ -146,7 +146,7 @@ class Strategy:
             requestURL = utilInfo.get_requestURL()
             headers = {"Accept": "application/json"}
             res = requests.request("GET", requestURL+"ticker?markets="+coinName, headers=headers)
-            #log.debug(res.json())
+            log.debug(res.json())
             data_dict = res.json() #리스트 안에 dict구조라… 이런 코드가 나왔습니다.
             log.debug(data_dict[0]['market'])
             log.debug(data_dict[0]['acc_trade_price']) #오전9시 기준 거래대금
