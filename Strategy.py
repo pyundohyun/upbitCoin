@@ -48,6 +48,7 @@ class Strategy:
         #k =  1 - (절대값 (시가) - 종가) / 고가 - 저가
         #해당코인의 현재가 정보추출
         df = pyupbit.get_ohlcv(coinName,"day",count=20)
+        sleep(1)
         #print(df)
         kvalue = 1 - (abs(df['open'] - df['close']) / (df['high'] - df['low']))
         #추세 평균값
@@ -103,6 +104,7 @@ class Strategy:
     #이동평균선 값 구하기
     def get_maVal(self, coinName , day):
         coinInfo = pyupbit.get_ohlcv(coinName, count=day)
+        sleep(1)
         #mean은 그룹화된 값의 평균
         #rolling은 갯수만큼 그룹화
         #마지막 행이 평균계산값이라서 -1
@@ -633,47 +635,29 @@ class Strategy:
               #기준가보다 낮은값에 사서, 기준값 돌파 상향하면 파는 로직 
               #기준가 근처에서 사니까 손해가 더크다, 그전에 비등한 범위안에있는걸 사서 올리는게 이득일듯
                             
-              if(MA5 >= MA14):
-                    CoinUtill().send_message("이평선 높은 코인>>>"+coinName)
+              if(curPrice > MA5 and curPrice > MA14 ):
+                    CoinUtill().send_message("현재가가 기준가보다 높은가? MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
+                    CoinUtill().send_message("서칭 코인>>>"+coinName)
                     CoinUtill().send_message("현재가격>>"+str(curPrice))
                     CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
-                    CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
                     CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
-                    CoinUtill().send_message("현재가가 MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
                     CoinUtill().send_message("MA5>>"+str(MA5))
                     CoinUtill().send_message("MA14>>"+str(MA14))
               
-              if(curPrice <= basicPriceValue):
+              if(curPrice >= basicPriceValue):
                 diff = curPrice-basicPriceValue
                 
                 #100이하는 0.5 차이면 삼
                 if(curPrice < 100 and curPrice >= 1):
-                    if(diff <= -0.05 and diff > -5): 
-                        
-                        # log.debug("구매할 코인명>>>"+coinName)
-                        # log.debug("현재가격>>"+str(curPrice))
-                        # log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
-                        # log.debug("변동성 지수 >>"+str(kvalue))
-                        # log.debug("차이>>"+str(curPrice-basicPriceValue))
-
+                    if(diff <= 0.05):
                         if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
                             CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
                 #100 이상은 5차이나면 삼 
                 elif(curPrice >= 100) :
-                    #if(diff <= -2 and diff > -10):            
-                        # log.debug("구매할 코인명>>>"+coinName)
-                        # log.debug("현재가격>>"+str(curPrice))
-                        # log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
-                        # log.debug("변동성 지수 >>"+str(kvalue))
-                        # log.debug("차이>>"+str(curPrice-basicPriceValue))
-
-                        # CoinUtill().send_message("현재가가 MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
-                        # CoinUtill().send_message("MA5>>"+str(MA5))
-                        # CoinUtill().send_message("MA14>>"+str(MA14))
-
-                    if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
-                        #시장가로 주문
-                        CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
+                    if(diff <= 2):
+                        if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
+                            #시장가로 주문
+                            CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
 
         except Exception as Err:
             log.debug('[[[[[[Error]]]]]] goBuyCoin Error>>>'+str(Err))
