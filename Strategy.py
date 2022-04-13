@@ -149,7 +149,7 @@ class Strategy:
             #log.debug(res.json())
             data_dict = res.json() #리스트 안에 dict구조라… 이런 코드가 나왔습니다.
             log.debug(data_dict[0]['market'])
-            log.debug(data_dict[0]['acc_trade_volume']) #오전9시 기준 거래대금
+            log.debug(data_dict[0]['acc_trade_price']) #오전9시 기준 거래대금
 
             #전일대비 상위권 코인 + 거래량 20프로 많은거 and firstVolume*1.2 < curVolume
             #and firstVolume*1.2 < curVolume
