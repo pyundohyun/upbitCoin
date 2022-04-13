@@ -48,6 +48,8 @@ class Strategy:
         #k =  1 - (절대값 (시가) - 종가) / 고가 - 저가
         #해당코인의 현재가 정보추출
         df = pyupbit.get_ohlcv(coinName,"day",count=20)
+        #필수
+        sleep(2)
         #print(df)
         kvalue = 1 - (abs(df['open'] - df['close']) / (df['high'] - df['low']))
         #추세 평균값
@@ -103,6 +105,8 @@ class Strategy:
     #이동평균선 값 구하기
     def get_maVal(self, coinName , day):
         coinInfo = pyupbit.get_ohlcv(coinName, count=day)
+        #필수
+        sleep(1)
         #mean은 그룹화된 값의 평균
         #rolling은 갯수만큼 그룹화
         #마지막 행이 평균계산값이라서 -1
@@ -580,12 +584,11 @@ class Strategy:
                CoinUtill().send_message("구매한 코인명>>>"+coinName)
                CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
                CoinUtill().send_message("현재가격>>"+str(curPrice))
-               CoinUtill().send_message("현재 코인 수익률 >>>"+str(coinProfit))
 
-               log.debug("이미 구매한 코인 서칭중....")
-               log.debug("coinName>>>"+coinName)
-               log.debug("basicPriceValue>>>"+str(basicPriceValue))
-               log.debug("curPrice>>>"+str(curPrice))
+            #    log.debug("이미 구매한 코인 서칭중....")
+            #    log.debug("coinName>>>"+coinName)
+            #    log.debug("basicPriceValue>>>"+str(basicPriceValue))
+            #    log.debug("curPrice>>>"+str(curPrice))
                
                myCoinInfo = CoinEvent().getMyProfit(coinName)
                coinProfit = myCoinInfo["profitPercent"]
@@ -606,6 +609,13 @@ class Strategy:
                       log.debug("구매했던 코인명>>>"+coinName)
                       log.debug("손실 퍼센트::>>>"+str(coinProfit))
                       CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")    
+
+                  elif(coinProfit >= 4.2):
+                      log.debug("예상치보다 많이오름, 익절!")
+                      log.debug("구매했던 코인명>>>"+coinName)
+                      log.debug("손실 퍼센트::>>>"+str(coinProfit))
+                      CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")    
+                      
                else:
                   #가능성 적지만, 오르면 팔고 내리면 팔고 
                   if(coinProfit >= 3.5):
@@ -623,18 +633,21 @@ class Strategy:
 
           else:
               #log.debug("첫 구매할 코인 서칭중....")
-              if(curPrice <= basicPriceValue):
+              if(curPrice >= basicPriceValue):
                 CoinUtill().send_message("구매할 코인명>>>"+coinName)
                 CoinUtill().send_message("현재가격>>"+str(curPrice))
                 CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
                 CoinUtill().send_message("변동성 지수 >>"+str(kvalue))
                 CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
     
-                log.debug("구매할 코인명>>>"+coinName)
-                log.debug("현재가격>>"+str(curPrice))
-                log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
-                log.debug("변동성 지수 >>"+str(kvalue))
-                log.debug("차이>>"+str(curPrice-basicPriceValue))
+                # log.debug("구매할 코인명>>>"+coinName)
+                # log.debug("현재가격>>"+str(curPrice))
+                # log.debug("변동성지수 기준가격>>"+str(basicPriceValue))
+                # log.debug("변동성 지수 >>"+str(kvalue))
+                # log.debug("차이>>"+str(curPrice-basicPriceValue))
+                # log.debug("MA5 >>"+str(MA5))
+                # log.debug("MA14>>"+str(MA14))
+
                 
                 diff = curPrice-basicPriceValue
                 
