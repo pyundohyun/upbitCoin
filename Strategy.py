@@ -158,7 +158,7 @@ class Strategy:
             #and firstVolume*1.2 < curVolume
             
             #500억 이상 누적 거래대금
-            if(diffPercent >= -2.8 and diffPercent <= 2.5 and vol24 >= 50000000000):
+            if(diffPercent >= -2.8 and diffPercent <= 10 and vol24 >= 50000000000):
             #if(firstClose < curClose and firstVolume*1.2 < curVolume):
                 #log.debug('get_bigShort_coinList 급등할예정 높음')
                 #log.debug('coinName >>'+coinName)
