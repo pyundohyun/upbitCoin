@@ -158,7 +158,7 @@ class Strategy:
             #and firstVolume*1.2 < curVolume
             
             #500억 이상 누적 거래대금
-            if(diffPercent > -3.5 and diffPercent <= 10 and vol24 >= 50000000000):
+            if(diffPercent > -7.0 and diffPercent <= 10 and vol24 >= 50000000000):
             #if(firstClose < curClose and firstVolume*1.2 < curVolume):
                 #log.debug('get_bigShort_coinList 급등할예정 높음')
                 #log.debug('coinName >>'+coinName)
@@ -612,7 +612,7 @@ class Strategy:
                if(basicPriceValue > curPrice):
                   #lossPercent = float(((curPrice - basicPriceValue)/basicPriceValue))*100
                   #log.debug("lossPercent>>>"+str(lossPercent))
-                  if(coinProfit < -2 and coinProfit >= -3):
+                  if(coinProfit < -2 and coinProfit >= -3.45):
                       log.debug("예상치보다 떨어지면, 추매")
                       log.debug("구매했던 코인명>>>"+coinName)
                       log.debug("손실 퍼센트::>>>"+str(coinProfit))
