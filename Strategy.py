@@ -593,10 +593,10 @@ class Strategy:
 
           #보유 코인인경우
           if CoinEvent().checkBuyCoin(coinName):
-               CoinUtill().send_message("이미 구매한 코인 서칭중....")
-               CoinUtill().send_message("구매한 코인명>>>"+coinName)
-               CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
-               CoinUtill().send_message("현재가격>>"+str(curPrice))
+            #    CoinUtill().send_message("이미 구매한 코인 서칭중....")
+            #    CoinUtill().send_message("구매한 코인명>>>"+coinName)
+            #    CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
+            #    CoinUtill().send_message("현재가격>>"+str(curPrice))
 
             #    log.debug("이미 구매한 코인 서칭중....")
             #    log.debug("coinName>>>"+coinName)
@@ -650,13 +650,13 @@ class Strategy:
               #기준가보다 낮은값에 사서, 기준값 돌파 상향하면 파는 로직 
               #기준가 근처에서 사니까 손해가 더크다, 그전에 비등한 범위안에있는걸 사서 올리는게 이득일듯
                             
-              CoinUtill().send_message("현재가가 기준가보다 높은가? MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
-              CoinUtill().send_message("서칭 코인>>>"+coinName)
-              CoinUtill().send_message("현재가격>>"+str(curPrice))
-              CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
-              CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
-              CoinUtill().send_message("MA5>>"+str(MA5))
-              CoinUtill().send_message("MA14>>"+str(MA14))
+            #   CoinUtill().send_message("현재가가 기준가보다 높은가? MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
+            #   CoinUtill().send_message("서칭 코인>>>"+coinName)
+            #   CoinUtill().send_message("현재가격>>"+str(curPrice))
+            #   CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
+            #   CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
+            #   CoinUtill().send_message("MA5>>"+str(MA5))
+            #   CoinUtill().send_message("MA14>>"+str(MA14))
               
               #if(curPrice >= basicPriceValue):
               diff = curPrice-basicPriceValue
