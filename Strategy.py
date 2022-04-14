@@ -156,7 +156,10 @@ class Strategy:
             #50 000 000000
             #전일대비 상위권 코인 + 거래량 20프로 많은거 and firstVolume*1.2 < curVolume
             #and firstVolume*1.2 < curVolume
-            
+            CoinUtill().send_message("코인명 >>>"+str(coinName))
+            CoinUtill().send_message("전일대비 퍼센트 >>>"+str(diffPercent))
+            CoinUtill().send_message("거래대금"+str(vol24))
+
             #500억 이상 누적 거래대금
             if(diffPercent > -7.0 and diffPercent <= 10 and vol24 >= 50000000000):
             #if(firstClose < curClose and firstVolume*1.2 < curVolume):
