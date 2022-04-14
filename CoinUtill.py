@@ -8,16 +8,17 @@ from Log import *
 class CoinUtill:
     #기본 고정값 세팅 
     def __init__(self):
-        self.access_key = "sCkRMzkG0Bt9dxxLboWRlNmi983qydxGqxHxzMGo"
-        self.secret_key = "kw6tRqwVJYI4sttxKytRC1IERbgaFIeHvsRHCDnf"
+        #탕스 우분투용
+        self.access_key = "xCwpqYhPJl8VYeEJHBr0nZMPdxROmJ4mzcypIkVx"
+        self.secret_key = "aIcrRdbZ5CMqxgZbbVdWndH1PiGBVvWLUyss1MXY"
         
         self.requestURL = "https://api.upbit.com/v1/"
-        self.limitMoney = 15000
+        self.orderMoney = 10000
         #라인 메신저 알림 토큰
         self.message_url = "https://notify-api.line.me/api/notify"
         self.lineMessageToken = "BgWBqobOZRydM7qoXXRBxCr2B5Dm1spn4c1U7RSD0kc"
         #기준3만원씩 투자 
-        self.orderMoney = 30000
+        self.limitMoney = 5000
 
         #익절 퍼센트 
         self.sellPercent  = 1.1
