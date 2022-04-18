@@ -101,7 +101,7 @@ async def findCoin():
 #        log.debug("  ")
 #        log.debug('[[[[[[[[[ 회전끝::: '+str(curTime)+']]]]]]]]]')
          
-        CoinUtill.send_message("[[[[[[[[[ 회전끝::: "+str(curTime)+"]]]]]]]]]")
+        #CoinUtill.send_message("[[[[[[[[[ 회전끝::: "+str(curTime)+"]]]]]]]]]")
 
         #print("  ")
         #print('[[[[[[[[[ 회전끝::: '+str(curTime)+']]]]]]]]]')

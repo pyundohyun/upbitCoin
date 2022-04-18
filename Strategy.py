@@ -606,7 +606,7 @@ class Strategy:
                myCoinInfo = CoinEvent().getMyProfit(coinName)
                coinProfit = myCoinInfo["profitPercent"]
 
-               CoinUtill().send_message("현재 코인 수익률 >>>"+str(coinProfit))
+            #   CoinUtill().send_message("현재 코인 수익률 >>>"+str(coinProfit))
             #    log.debug(" wallet percent>>>"+str(coinProfit))
 
                if(basicPriceValue > curPrice):
