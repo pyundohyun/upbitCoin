@@ -612,6 +612,8 @@ class Strategy:
                coinProfit = myCoinInfo["profitPercent"]
                CoinUtill().send_message("매수수량>>"+str(myCoinInfo["balance"]))
                CoinUtill().send_message("매수평가금>>"+str(myCoinInfo["balance"] * myCoinInfo["buyPrice"]))
+               buyTotalPrice = myCoinInfo["balance"] * myCoinInfo["buyPrice"]
+               
                CoinUtill().send_message("현재 코인 수익률 >>>"+str(coinProfit))
             #    log.debug(" wallet percent>>>"+str(coinProfit))
 
@@ -630,19 +632,34 @@ class Strategy:
                       log.debug("손실 퍼센트::>>>"+str(coinProfit))
                       CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")    
 
-                  elif(coinProfit >= 4.2):
-                      log.debug("예상치보다 많이오름, 익절!")
-                      log.debug("구매했던 코인명>>>"+coinName)
-                      log.debug("손실 퍼센트::>>>"+str(coinProfit))
-                      CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")    
-
+                  elif(coinProfit >= 3.5):
+                      #매수한 금액 25만원이상이면 5.5% 이상이면 팔고 
+                      if(buyTotalPrice > 250000 and coinProfit >= 5.5):
+                        log.debug("추매를 계속했던 코인 !")
+                        log.debug("구매했던 코인명>>>"+coinName)
+                        log.debug("익절 퍼센트::>>>"+str(coinProfit))
+                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")    
+                      else:
+                        # 아니면 기존 퍼센트에 판다.
+                        log.debug("예상치보다 많이오름, 익절!")
+                        log.debug("구매했던 코인명>>>"+coinName)
+                        log.debug("익절 퍼센트::>>>"+str(coinProfit))
+                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")      
                else:
                   #가능성 적지만, 오르면 팔고 내리면 팔고 
                   if(coinProfit >= 3.5):
-                      log.debug("예상치보다 많이오름, 익절!")
-                      log.debug("구매했던 코인명>>>"+coinName)
-                      log.debug("손실 퍼센트::>>>"+str(coinProfit))
-                      CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")
+                      #매수한 금액 25만원이상이면 5.5% 이상이면 팔고 
+                      if(buyTotalPrice > 250000 and coinProfit >= 5.5):
+                        log.debug("추매를 계속했던 코인 !")
+                        log.debug("구매했던 코인명>>>"+coinName)
+                        log.debug("익절 퍼센트::>>>"+str(coinProfit))
+                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")    
+                      else:
+                        # 아니면 기존 퍼센트에 판다.
+                        log.debug("예상치보다 많이오름, 익절!")
+                        log.debug("구매했던 코인명>>>"+coinName)
+                        log.debug("익절 퍼센트::>>>"+str(coinProfit))
+                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")   
 
                   elif(coinProfit <-3.5 ):
                       log.debug("이러다 다죽어!!!!! 손절 ㅠ")
