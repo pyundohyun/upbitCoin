@@ -600,6 +600,8 @@ class Strategy:
                CoinUtill().send_message("구매한 코인명>>>"+coinName)
                CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
                CoinUtill().send_message("현재가격>>"+str(curPrice))
+               
+
 
             #    log.debug("이미 구매한 코인 서칭중....")
             #    log.debug("coinName>>>"+coinName)
@@ -608,7 +610,7 @@ class Strategy:
                
                myCoinInfo = CoinEvent().getMyProfit(coinName)
                coinProfit = myCoinInfo["profitPercent"]
-
+               CoinUtill().send_message("매수금>>"+str(myCoinInfo["balance"]))
                CoinUtill().send_message("현재 코인 수익률 >>>"+str(coinProfit))
             #    log.debug(" wallet percent>>>"+str(coinProfit))
 
