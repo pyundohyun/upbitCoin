@@ -652,30 +652,32 @@ class Strategy:
               #log.debug("첫 구매할 코인 서칭중....")
               #기준가보다 낮은값에 사서, 기준값 돌파 상향하면 파는 로직 
               #기준가 근처에서 사니까 손해가 더크다, 그전에 비등한 범위안에있는걸 사서 올리는게 이득일듯
+              if(float(CoinEvent().getMyChongal()) >= 1500000):
+                # 15만원 이상까지만 사고 이하는 가지고있는것만 추매 하자 
 
-              if(MA5 > MA14):   
-                CoinUtill().send_message("현재가가 기준가보다 높은가? MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
-                CoinUtill().send_message("서칭 코인>>>"+coinName)
-                CoinUtill().send_message("현재가격>>"+str(curPrice))
-                CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
-                CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
-                CoinUtill().send_message("MA5>>"+str(MA5))
-                CoinUtill().send_message("MA14>>"+str(MA14))
-              
-              #if(curPrice >= basicPriceValue):
-              diff = curPrice-basicPriceValue
+                if(MA5 > MA14):   
+                    CoinUtill().send_message("현재가가 기준가보다 높은가? MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
+                    CoinUtill().send_message("서칭 코인>>>"+coinName)
+                    CoinUtill().send_message("현재가격>>"+str(curPrice))
+                    CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
+                    CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
+                    CoinUtill().send_message("MA5>>"+str(MA5))
+                    CoinUtill().send_message("MA14>>"+str(MA14))
                 
-                #100이하는 0.5 차이면 삼
-              if(curPrice < 100 and curPrice >= 1):
-                    #if(diff <= 0.05):
-                        if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
-                            CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
-                #100 이상은 5차이나면 삼 
-              elif(curPrice >= 100) :
-                    #if(diff <= 2):
-                        if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
-                            #시장가로 주문
-                            CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
+                #if(curPrice >= basicPriceValue):
+                diff = curPrice-basicPriceValue
+                    
+                    #100이하는 0.5 차이면 삼
+                if(curPrice < 100 and curPrice >= 1):
+                        #if(diff <= 0.05):
+                            if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
+                                CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
+                    #100 이상은 5차이나면 삼 
+                elif(curPrice >= 100) :
+                        #if(diff <= 2):
+                            if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
+                                #시장가로 주문
+                                CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
 
         except Exception as Err:
             log.debug('[[[[[[Error]]]]]] goBuyCoin Error>>>'+str(Err))
