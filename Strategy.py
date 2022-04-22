@@ -610,7 +610,8 @@ class Strategy:
                
                myCoinInfo = CoinEvent().getMyProfit(coinName)
                coinProfit = myCoinInfo["profitPercent"]
-               CoinUtill().send_message("매수금>>"+str(myCoinInfo["balance"]))
+               CoinUtill().send_message("매수수량>>"+str(myCoinInfo["balance"]))
+               CoinUtill().send_message("매수평가금>>"+str(myCoinInfo["balance"] * myCoinInfo["buyPrice"]))
                CoinUtill().send_message("현재 코인 수익률 >>>"+str(coinProfit))
             #    log.debug(" wallet percent>>>"+str(coinProfit))
 
