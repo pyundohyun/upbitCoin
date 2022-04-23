@@ -672,7 +672,8 @@ class Strategy:
               #log.debug("첫 구매할 코인 서칭중....")
               #기준가보다 낮은값에 사서, 기준값 돌파 상향하면 파는 로직 
               #기준가 근처에서 사니까 손해가 더크다, 그전에 비등한 범위안에있는걸 사서 올리는게 이득일듯
-              if(float(CoinEvent().getMyChongal()) >= 1500000):
+              CoinUtill().send_message("총알!>>>"+CoinEvent().getMyChongal())
+              if(float(CoinEvent().getMyChongal()) >= 150000):
                 # 15만원 이상까지만 사고 이하는 가지고있는것만 추매 하자 
 
                 if(MA5 > MA14):   
