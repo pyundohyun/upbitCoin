@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from CoinEvent import *
 from Log import *
 from CoinUtill import CoinUtill
+from ResultCoin import *
 import asyncio
 import pandas
 #코인전략
@@ -161,7 +162,7 @@ class Strategy:
             # CoinUtill().send_message("거래대금"+str(vol24))
 
             #500억 이상 누적 거래대금
-            if(diffPercent > -7.0 and diffPercent <= 10 and vol24 >= 50000000000):
+            if(diffPercent > -3.0 and diffPercent <= 10 and vol24 >= 40000000000):
             #if(firstClose < curClose and firstVolume*1.2 < curVolume):
                 #log.debug('get_bigShort_coinList 급등할예정 높음')
                 #log.debug('coinName >>'+coinName)
@@ -169,6 +170,11 @@ class Strategy:
                 # print('coinName >>'+coinName)
                 # print('급등할예정 높음')
                 bigShortFlag = True
+
+            if CoinEvent().checkBuyCoin(coinName):
+                #보유코인
+                bigShortFlag = True
+
         except Exception as Err:
             log.debug('get_bigShort_coinList Error>>>'+str(Err))
             #print('get_bigShort_coinList Error>>>'+str(Err))   
@@ -593,29 +599,21 @@ class Strategy:
     
           MA5 = self.get_maVal(coinName,5)
           MA14 = self.get_maVal(coinName,14)
-
+          
+          
           #보유 코인인경우
           if CoinEvent().checkBuyCoin(coinName):
-               CoinUtill().send_message("이미 구매한 코인 서칭중....")
-               CoinUtill().send_message("구매한 코인명>>>"+coinName)
-               CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
-               CoinUtill().send_message("현재가격>>"+str(curPrice))
-               
-
-
             #    log.debug("이미 구매한 코인 서칭중....")
             #    log.debug("coinName>>>"+coinName)
             #    log.debug("basicPriceValue>>>"+str(basicPriceValue))
-            #    log.debug("curPrice>>>"+str(curPrice))
-               
+            #    log.debug("curPrice>>>"+str(curPrice))               
                myCoinInfo = CoinEvent().getMyProfit(coinName)
                coinProfit = myCoinInfo["profitPercent"]
-               CoinUtill().send_message("매수수량>>"+str(myCoinInfo["balance"]))
-               CoinUtill().send_message("매수평가금>>"+str(myCoinInfo["balance"] * myCoinInfo["buyPrice"]))
                buyTotalPrice = myCoinInfo["balance"] * myCoinInfo["buyPrice"]
                
-               CoinUtill().send_message("현재 코인 수익률 >>>"+str(coinProfit))
             #    log.debug(" wallet percent>>>"+str(coinProfit))
+               messages = "\n코인명 :::: "+coinName+ "\n수익률 ::::"+str(coinProfit) +"\n변동성지수 기준가격 :::: "+str(basicPriceValue)+"\n현재가격 ::::"+str(curPrice) + "\n매수수량>>"+str(myCoinInfo["balance"])+ "\n매수평가금>>"+str(myCoinInfo["balance"] * myCoinInfo["buyPrice"])
+               CoinUtill().send_message("[[[[ 구매한 코인 확인중.. ]]]]"+messages)
 
                if(basicPriceValue > curPrice):
                   #lossPercent = float(((curPrice - basicPriceValue)/basicPriceValue))*100
@@ -638,13 +636,13 @@ class Strategy:
                         log.debug("추매를 계속했던 코인 !")
                         log.debug("구매했던 코인명>>>"+coinName)
                         log.debug("익절 퍼센트::>>>"+str(coinProfit))
-                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")    
+                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")
                       else:
                         # 아니면 기존 퍼센트에 판다.
                         log.debug("예상치보다 많이오름, 익절!")
                         log.debug("구매했던 코인명>>>"+coinName)
                         log.debug("익절 퍼센트::>>>"+str(coinProfit))
-                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")      
+                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market") 
                else:
                   #가능성 적지만, 오르면 팔고 내리면 팔고 
                   if(coinProfit >= 3.5):
@@ -659,8 +657,8 @@ class Strategy:
                         log.debug("예상치보다 많이오름, 익절!")
                         log.debug("구매했던 코인명>>>"+coinName)
                         log.debug("익절 퍼센트::>>>"+str(coinProfit))
-                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")   
 
+                        CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")   
                   elif(coinProfit <-3.5 ):
                       log.debug("이러다 다죽어!!!!! 손절 ㅠ")
                       log.debug("구매했던 코인명>>>"+coinName)
@@ -669,33 +667,40 @@ class Strategy:
 
 
           else:
+
+              # 구매플래그 - 이전에 사고팔았던거면 그가격보다 낮아야 True 만듬              
+              basicFlag = True
+              prebuyAndSellresult = CoinEvent().getSellCoinPaymentList(coinName)
+              if(curPrice <= prebuyAndSellresult):
+                #이전 구매했던가격보다 현재가격이 낮거나 같을때만 그코인 다시 사게함 
+#                CoinUtill().send_message("이전에 샀었음>>"+coinName)
+#                CoinUtill().send_message("현재가격>>"+str(curPrice))
+#                CoinUtill().send_message("당시가격>>"+str(prebuyAndSellresult))
+                basicFlag = True
+              else:
+                basicFlag = False
+              
               #log.debug("첫 구매할 코인 서칭중....")
               #기준가보다 낮은값에 사서, 기준값 돌파 상향하면 파는 로직 
               #기준가 근처에서 사니까 손해가 더크다, 그전에 비등한 범위안에있는걸 사서 올리는게 이득일듯
               if(float(CoinEvent().getMyChongal()) >= 150000):
                 # 15만원 이상까지만 사고 이하는 가지고있는것만 추매 하자 
-
                 if(MA5 > MA14):   
-                    CoinUtill().send_message("현재가가 기준가보다 높은가? MA5 M14보다 높은가? MA5가 MA14보다 높은가?")
-                    CoinUtill().send_message("서칭 코인>>>"+coinName)
-                    CoinUtill().send_message("현재가격>>"+str(curPrice))
-                    CoinUtill().send_message("변동성지수 기준가격>>"+str(basicPriceValue))
-                    CoinUtill().send_message("차이>>"+str(curPrice-basicPriceValue))
-                    CoinUtill().send_message("MA5>>"+str(MA5))
-                    CoinUtill().send_message("MA14>>"+str(MA14))
-                
+                    #messagea = "\n코인명 :::: "+coinName+ "\n현재가격 ::::"+str(curPrice) + "\nMA5>>"+str(MA5)+ "\nMA14>>"+str(MA14) +"\n변동성지수 기준가격 :::: "+str(basicPriceValue)+"\n차이(변동성-현재가) ::::"+str(curPrice-basicPriceValue)  + "\n이전 판매가격보다 낮음>>"+basicFlag +"\n현재가격>>"+str(curPrice) +"\n당시가격>>"+str(prebuyAndSellresult)
+                    messagea = "\n코인명 :::: "+coinName+"\n현재가격>>"+str(curPrice)+"\nMA5>>"+str(MA5)+"\nMA14>>"+str(MA14)+"\n변동성지수 기준가격 ::::"+str(basicPriceValue)+"\n차이(변동성-현재가) ::::"+str(curPrice-basicPriceValue)+"\n현재가격>>"+str(curPrice) +"\n당시가격>>"+str(prebuyAndSellresult)
+                    CoinUtill().send_message("[[[[ 코인 서칭중... ]]]]"+messagea)
                 #if(curPrice >= basicPriceValue):
                 diff = curPrice-basicPriceValue
                     
                     #100이하는 0.5 차이면 삼
                 if(curPrice < 100 and curPrice >= 1):
                         #if(diff <= 0.05):
-                            if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
+                            if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14 and basicFlag):
                                 CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
                     #100 이상은 5차이나면 삼 
                 elif(curPrice >= 100) :
                         #if(diff <= 2):
-                            if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14):
+                            if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14 and basicFlag):
                                 #시장가로 주문
                                 CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
 

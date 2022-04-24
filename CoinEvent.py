@@ -170,6 +170,9 @@ class CoinEvent:
             if(str(myItem["unit_currency"])+"-"+str(myItem["currency"]) == coinName):
                 #print('이미 보유한 코인이다!!')
                 hasFlag = True
+                #print("coinName>>"+coinName)
+                #print("hasFlag>>"+str(hasFlag))
+
                 return hasFlag
 
         return hasFlag
@@ -335,5 +338,88 @@ class CoinEvent:
                 elif(operDate <beforeTime):
                         order_history_df.to_excel("손익결과_"+beforeTime+"_"+curTime+".xlsx")
                         return
-                
+    
+    #해당코인의 마지막 매수값을 가져옴 - 매도후 또사는경우가 있어서 비교 위한차원
+    def getSellCoinPaymentList(self,coinName):
+        
+        # 유틸값 가져옴 
+        utilInfo = CoinUtill()        
+        
+        access_key = utilInfo.get_accessKey()
+        secret_key = utilInfo.get_secretKey()
+
+        curTime = (datetime.today()).strftime("%Y%m%d")+str("0900")
+        beforeTime = (datetime.today() - timedelta(1)).strftime("%Y%m%d")+str("0900")
+        
+        #upbit.client 라는 것으로 추출 -> uuid 빼내서 재요청해야 정상적인 값을 가져온다,.  
+        client = Upbit(access_key, secret_key) 
+        #해당 코인으로 한정 
+        orders = client.Order.Order_info_all(market=coinName, page=1, limit=100, states=["done", "cancel"])['result'] 
+        #print(orders)
+
+        df = pandas.DataFrame(orders)
+        #전체 주문 History 요청 -> 요청폼 만들고 
+        _order_info_all = []
+
+
+        page = 1
+        while True:
+                orders = client.Order.Order_info_all(page=page, limit=100, states=["done", "cancel"])['result']
+                _order_info_all = _order_info_all + orders
+                page += 1
+                if len(orders) < 100:
+                    break
+        
+        #해당코인이면서, 매수만 검색
+        _order_info_all = [order for order in _order_info_all if order['trades_count'] > 0 and order['market'] == coinName and order['side'] == 'bid']
+        
+        order_history_df = pandas.DataFrame(columns=["주문시간", "마켓", "종류", "거래수량", "거래단가", "거래금액", "수수료", "정산금액"])
+
+        #print(_order_info_all[0])
+
+        # 개별 주문에 대한 Detailed info 요청 및 업데이트 -> 실제요청
+        #for i, order in enumerate(_order_info_all):
+        order = _order_info_all[0]
+        detailed_order = client.Order.Order_info(uuid=order['uuid'])['result']
+        
+        if 'trades' in detailed_order and detailed_order['trades']:
+            df_trades = pandas.DataFrame(detailed_order['trades'])
+            df_trades = df_trades.astype({'funds': float,
+                                        'price': float,
+                                        'volume': float})
+            fund = df_trades['funds'].sum()
+            trading_price = df_trades['price'].sum() / detailed_order['trades_count']
+            trading_volume = df_trades['volume'].sum()
+            order['fund'] = fund
+            order['trading_price'] = trading_price
+            order['trading_volume'] = trading_volume
+            if order['side'] == 'ask':  # 매도시 최종금액 = 정산금액 - 수수료
+                order['executed_fund'] = order['fund'] - float(order['paid_fee'])
+            else:  # 매수시 최종금액 = 정산금액 + 수수료
+                order['executed_fund'] = order['fund'] + float(order['paid_fee'])
+            
+        # single dict to df로 변환
+        df = pandas.DataFrame([order])
+        df.loc[(df.side == 'bid'), 'side'] = '매수'
+        df.loc[(df.side == 'ask'), 'side'] = '매도'
+
+        df.drop(['uuid', 'ord_type', 'price', 'state', 'trades_count', 'volume', 'executed_volume',
+                'remaining_volume', 'reserved_fee', 'remaining_fee', 'locked'], axis=1, inplace=True)
+        df.rename(columns={'side': '종류', 'trading_price': '거래단가', 'market': '마켓', 'created_at': '주문시간',
+                        'paid_fee': '수수료', 'fund': '거래금액', 'trading_volume': '거래수량',
+                        'executed_fund': '정산금액'}, inplace=True)
+        df = df.reindex(columns=['주문시간', '마켓', '종류', '거래수량', '거래단가', '거래금액', '수수료', '정산금액'])
+        #df['주문시간'] = pandas.to_datetime(df['주문시간'])
+        df = df.astype({'수수료': float})
+        
+        order_history_df = pandas.concat([order_history_df, df], ignore_index=True)
+        order_history_df.sort_values(by=['마켓'])
+        #df.to_excel(tomorrowTime+".xlsx") 
+        #print(order_history_df["거래단가"][0])
+
+        return order_history_df["거래단가"][0]
+
+
+
+
        
