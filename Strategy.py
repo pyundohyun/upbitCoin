@@ -612,8 +612,7 @@ class Strategy:
                buyTotalPrice = myCoinInfo["balance"] * myCoinInfo["buyPrice"]
                
             #    log.debug(" wallet percent>>>"+str(coinProfit))
-               messages = "\n코인명 :::: "+coinName+ "\n수익률 ::::"+str(coinProfit) +"\n변동성지수 기준가격 :::: "+str(basicPriceValue)+"\n현재가격 ::::"+str(curPrice) + "\n매수수량>>"+str(myCoinInfo["balance"])+ "\n매수평가금>>"+str(myCoinInfo["balance"] * myCoinInfo["buyPrice"])
-               CoinUtill().send_message("[[[[tangs 구매한 코인 확인중.. ]]]]"+messages)
+
 
                if(basicPriceValue > curPrice):
                   #lossPercent = float(((curPrice - basicPriceValue)/basicPriceValue))*100
@@ -664,7 +663,9 @@ class Strategy:
                       log.debug("구매했던 코인명>>>"+coinName)
                       log.debug("손실 퍼센트::>>>"+str(coinProfit))
                       CoinEvent.buyAndGazzza(self,coinName,"ask",myCoinInfo["balance"],0,"market")
-
+               
+               messages = "\n코인명 :::: "+coinName+ "\n수익률 ::::"+str(coinProfit) +"\n변동성지수 기준가격 :::: "+str(basicPriceValue)+"\n현재가격 ::::"+str(curPrice) + "\n매수수량>>"+str(myCoinInfo["balance"])+ "\n매수평가금>>"+str(myCoinInfo["balance"] * myCoinInfo["buyPrice"])
+               CoinUtill().send_message("[[[[tangs 구매한 코인 확인중.. ]]]]"+messages)
 
           else:
 
