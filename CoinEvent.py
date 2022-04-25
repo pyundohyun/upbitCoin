@@ -419,7 +419,7 @@ class CoinEvent:
 
         returnVal = 999999
 
-        if(order_history_df["거래단가"][0] ==null):
+        if(order_history_df["거래단가"][0] != None):
             returnVal = order_history_df["거래단가"][0]
 
         return returnVal
