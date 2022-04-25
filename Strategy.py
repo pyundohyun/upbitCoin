@@ -176,7 +176,7 @@ class Strategy:
                 bigShortFlag = True
 
         except Exception as Err:
-            log.debug('get_bigShort_coinList Error>>>'+str(Err))
+            log.debug('get_bigShort_coinList Error>>>'+Err)
             #print('get_bigShort_coinList Error>>>'+str(Err))   
         finally:
             return bigShortFlag
