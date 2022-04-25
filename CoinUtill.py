@@ -12,12 +12,12 @@ class CoinUtill:
         self.secret_key = "kw6tRqwVJYI4sttxKytRC1IERbgaFIeHvsRHCDnf"
         
         self.requestURL = "https://api.upbit.com/v1/"
-        self.limitMoney = 15000
+        self.limitMoney = 25000
         #라인 메신저 알림 토큰
         self.message_url = "https://notify-api.line.me/api/notify"
         self.lineMessageToken = "BgWBqobOZRydM7qoXXRBxCr2B5Dm1spn4c1U7RSD0kc"
         #기준3만원씩 투자 
-        self.orderMoney = 30000
+        self.orderMoney = 50000
 
         #익절 퍼센트 
         self.sellPercent  = 1.1
