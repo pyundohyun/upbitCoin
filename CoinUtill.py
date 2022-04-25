@@ -44,9 +44,10 @@ class CoinUtill:
 
     #라인 메신저 보내기
     def send_message(self,message):
-        #log = Log().initLogger()
-
-        response = requests.post(
+        
+        log = Log().initLogger()
+        try:
+            response = requests.post(
             self.message_url,
             headers={
                 'Authorization' : 'Bearer ' + self.lineMessageToken
@@ -56,6 +57,9 @@ class CoinUtill:
             }
         )
         #log.debug("라인>>>"+response.text)
+        except Exception as Err:
+            log.debug('[[[[[[Error]]]]]] send_message Error>>>'+str(Err))
+
 
     #init 변수 리턴
     def get_requestURL(self):
