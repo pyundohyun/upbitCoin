@@ -417,7 +417,12 @@ class CoinEvent:
         #df.to_excel(tomorrowTime+".xlsx") 
         #print(order_history_df["거래단가"][0])
 
-        return order_history_df["거래단가"][0]
+        returnVal = 999999
+
+        if(order_history_df["거래단가"][0] ==null):
+            returnVal = order_history_df["거래단가"][0]
+
+        return returnVal
 
 
 
