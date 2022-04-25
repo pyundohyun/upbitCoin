@@ -57,9 +57,9 @@ async def findCoin():
         #print('[[[[[[[[[편도 '+ str(cnt) +' 회전시작::: '+ str(curTime) +']]]]]]]]]')
         #print("  ")
 
-        log.debug('[[[[[[[[[편도 '+ str(cnt) +' 회전시작::: '+ str(curTime) +']]]]]]]]]')
+        log.debug('[[[[[[[[[pd '+ str(cnt) +' rotate::: '+ str(curTime) +']]]]]]]]]')
         log.debug("  ")
-        CoinUtill.send_message("[[[[[[[[[편도 "+ str(cnt) +" 회전시작::: "+ str(curTime) +"]]]]]]]]]")
+        #CoinUtill.send_message("[[[[[[[[[편도 "+ str(cnt) +" 회전시작::: "+ str(curTime) +"]]]]]]]]]")
 
         #오전 8시 ~ 9시에 전량매도 
         if(int(endTime) < 900 and int(endTime) > 845):
@@ -102,7 +102,7 @@ async def findCoin():
 #        log.debug("  ")
 #        log.debug('[[[[[[[[[ 회전끝::: '+str(curTime)+']]]]]]]]]')
          
-        CoinUtill.send_message("[[[[[[[[[ 회전끝::: "+str(curTime)+"]]]]]]]]]")
+        #CoinUtill.send_message("[[[[[[[[[ 회전끝::: "+str(curTime)+"]]]]]]]]]")
 
         #print("  ")
         #print('[[[[[[[[[ 회전끝::: '+str(curTime)+']]]]]]]]]')
