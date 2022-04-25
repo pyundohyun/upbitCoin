@@ -380,7 +380,8 @@ class CoinEvent:
         # 개별 주문에 대한 Detailed info 요청 및 업데이트 -> 실제요청
         #for i, order in enumerate(_order_info_all):
 
-        if(_order_info_all[0] != None):
+        # 한번도 산적없는경우 있을수 있어서 처리 
+        if(_order_info_all != None):
             order = _order_info_all[0]
             detailed_order = client.Order.Order_info(uuid=order['uuid'])['result']
             
@@ -421,7 +422,7 @@ class CoinEvent:
             returnVal = order_history_df["거래단가"][0]
         else:
             returnVal = 999999
-            
+
         return returnVal
 
 
