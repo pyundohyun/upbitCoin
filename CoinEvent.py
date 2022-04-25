@@ -381,7 +381,7 @@ class CoinEvent:
         #for i, order in enumerate(_order_info_all):
 
         # 한번도 산적없는경우 있을수 있어서 처리 
-        if(_order_info_all != None):
+        if(len(_order_info_all) > 0):
             order = _order_info_all[0]
             detailed_order = client.Order.Order_info(uuid=order['uuid'])['result']
             
