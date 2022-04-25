@@ -613,7 +613,7 @@ class Strategy:
                
             #    log.debug(" wallet percent>>>"+str(coinProfit))
                messages = "\n코인명 :::: "+coinName+ "\n수익률 ::::"+str(coinProfit) +"\n변동성지수 기준가격 :::: "+str(basicPriceValue)+"\n현재가격 ::::"+str(curPrice) + "\n매수수량>>"+str(myCoinInfo["balance"])+ "\n매수평가금>>"+str(myCoinInfo["balance"] * myCoinInfo["buyPrice"])
-               CoinUtill().send_message("[[[[ 구매한 코인 확인중.. ]]]]"+messages)
+               CoinUtill().send_message("[[[[tangs 구매한 코인 확인중.. ]]]]"+messages)
 
                if(basicPriceValue > curPrice):
                   #lossPercent = float(((curPrice - basicPriceValue)/basicPriceValue))*100
@@ -683,12 +683,12 @@ class Strategy:
               #log.debug("첫 구매할 코인 서칭중....")
               #기준가보다 낮은값에 사서, 기준값 돌파 상향하면 파는 로직 
               #기준가 근처에서 사니까 손해가 더크다, 그전에 비등한 범위안에있는걸 사서 올리는게 이득일듯
-              if(float(CoinEvent().getMyChongal()) >= 150000):
+              if(float(CoinEvent().getMyChongal()) >= 15000):
                 # 15만원 이상까지만 사고 이하는 가지고있는것만 추매 하자 
                 if(MA5 > MA14):   
                     #messagea = "\n코인명 :::: "+coinName+ "\n현재가격 ::::"+str(curPrice) + "\nMA5>>"+str(MA5)+ "\nMA14>>"+str(MA14) +"\n변동성지수 기준가격 :::: "+str(basicPriceValue)+"\n차이(변동성-현재가) ::::"+str(curPrice-basicPriceValue)  + "\n이전 판매가격보다 낮음>>"+basicFlag +"\n현재가격>>"+str(curPrice) +"\n당시가격>>"+str(prebuyAndSellresult)
                     messagea = "\n코인명 :::: "+coinName+"\n현재가격>>"+str(curPrice)+"\nMA5>>"+str(MA5)+"\nMA14>>"+str(MA14)+"\n변동성지수 기준가격 ::::"+str(basicPriceValue)+"\n차이(변동성-현재가) ::::"+str(curPrice-basicPriceValue)+"\n현재가격>>"+str(curPrice) +"\n당시가격>>"+str(prebuyAndSellresult)
-                    CoinUtill().send_message("[[[[ 코인 서칭중... ]]]]"+messagea)
+                    CoinUtill().send_message("[[[[tangs 코인 서칭중... ]]]]"+messagea)
                 #if(curPrice >= basicPriceValue):
                 diff = curPrice-basicPriceValue
                     

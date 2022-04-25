@@ -336,7 +336,7 @@ class CoinEvent:
                     
                 #curTime 이전으로 가면, 그때까지 값 리턴
                 elif(operDate <beforeTime):
-                        order_history_df.to_excel("손익결과_"+beforeTime+"_"+curTime+".xlsx")
+                        order_history_df.to_excel("buyAndSellTangs_"+beforeTime+"_"+curTime+".xlsx")
                         return
     
     #해당코인의 마지막 매수값을 가져옴 - 매도후 또사는경우가 있어서 비교 위한차원
