@@ -281,7 +281,7 @@ class CoinEvent:
         page = 1
         while True:
                 orders = client.Order.Order_info_all(page=page, limit=100, states=["done", "cancel"])['result']
-                sleep(0.5)
+                sleep(1)
                 _order_info_all = _order_info_all + orders
                 page += 1
                 if len(orders) < 100:
@@ -366,7 +366,7 @@ class CoinEvent:
         page = 1
         while True:
                 orders = client.Order.Order_info_all(page=page, limit=100, states=["done", "cancel"])['result']
-                sleep(0.5)
+                sleep(1)
                 _order_info_all = _order_info_all + orders
                 page += 1
                 if len(orders) < 100:
