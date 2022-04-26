@@ -254,7 +254,7 @@ class Strategy:
             if(before_coin_RIS[-1] - before_coin_RIS[-2] >0 #1 +
             and before_coin_RIS[-2] - before_coin_RIS[-3] >= 0 #2 + 
             #거래량 차이 이상일때 산다.
-            and CoinEvent().get_diff_vol(coinName,"minute1",5) >= 20000
+            and CoinEvent().get_diff_vol(coinName,"minute1",5) >= 10000
             and before_coin_RIS[-3] - before_coin_RIS[-4] <= 0 #3  + 
             and before_coin_RIS[-4] - before_coin_RIS[-5] <= 0 #4 - 
             and before_coin_RIS[-5] - before_coin_RIS[-6] < 0 #5 - 
