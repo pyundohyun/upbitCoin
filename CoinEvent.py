@@ -18,7 +18,7 @@ class CoinEvent:
 
     #현재 보유잔고 
     def get_myBalance(self):
-
+        
         # 유틸값 가져옴 
         utilInfo = CoinUtill()
 
@@ -26,7 +26,7 @@ class CoinEvent:
         requestURL = utilInfo.get_requestURL()
 
         # 통신요청 
-        res = requests.get(requestURL+'accounts', headers=headers)
+        res = requests.get(requestURL+'accounts', headers=headers, timeout=5)
         return res.json()
 
     #현재 나의 코인별 수익정보 
@@ -287,7 +287,7 @@ class CoinEvent:
             page = 1
             while True:
                     orders = client.Order.Order_info_all(page=page, limit=100, states=["done", "cancel"])['result']
-                    sleep(1.8)
+                    #sleep(1.8)
                     _order_info_all = _order_info_all + orders
                     page += 1
                     if len(orders) < 100:
@@ -377,7 +377,7 @@ class CoinEvent:
             page = 1
             while True:
                     orders = client.Order.Order_info_all(page=page, limit=100, states=["done", "cancel"])['result']
-                    sleep(1.8)
+                    #sleep(1.8)
                     _order_info_all = _order_info_all + orders
                     page += 1
                     if len(orders) < 100:
