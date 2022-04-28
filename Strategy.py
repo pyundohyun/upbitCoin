@@ -671,22 +671,24 @@ class Strategy:
 
               # 구매플래그 - 이전에 사고팔았던거면 그가격보다 낮아야 True 만듬              
               basicFlag = True
-              prebuyAndSellresult = CoinEvent().getSellCoinPaymentList(coinName)
-              if(curPrice <= prebuyAndSellresult):
-                #이전 구매했던가격보다 현재가격이 낮거나 같을때만 그코인 다시 사게함 
-#                CoinUtill().send_message("이전에 샀었음>>"+coinName)
-#                CoinUtill().send_message("현재가격>>"+str(curPrice))
-#                CoinUtill().send_message("당시가격>>"+str(prebuyAndSellresult))
-                basicFlag = True
-              else:
-                basicFlag = False
               
               #log.debug("첫 구매할 코인 서칭중....")
               #기준가보다 낮은값에 사서, 기준값 돌파 상향하면 파는 로직 
               #기준가 근처에서 사니까 손해가 더크다, 그전에 비등한 범위안에있는걸 사서 올리는게 이득일듯
               if(float(CoinEvent().getMyChongal()) >= 30000):
                 # 15만원 이상까지만 사고 이하는 가지고있는것만 추매 하자 
-                if(MA5 > MA14):   
+                if(MA5 > MA14):
+                    
+                    prebuyAndSellresult = CoinEvent().getSellCoinPaymentList(coinName)
+                    if(curPrice <= prebuyAndSellresult):
+                        #이전 구매했던가격보다 현재가격이 낮거나 같을때만 그코인 다시 사게함 
+        #                CoinUtill().send_message("이전에 샀었음>>"+coinName)
+        #                CoinUtill().send_message("현재가격>>"+str(curPrice))
+        #                CoinUtill().send_message("당시가격>>"+str(prebuyAndSellresult))
+                        basicFlag = True
+                    else:
+                        basicFlag = False   
+                    
                     #messagea = "\n코인명 :::: "+coinName+ "\n현재가격 ::::"+str(curPrice) + "\nMA5>>"+str(MA5)+ "\nMA14>>"+str(MA14) +"\n변동성지수 기준가격 :::: "+str(basicPriceValue)+"\n차이(변동성-현재가) ::::"+str(curPrice-basicPriceValue)  + "\n이전 판매가격보다 낮음>>"+basicFlag +"\n현재가격>>"+str(curPrice) +"\n당시가격>>"+str(prebuyAndSellresult)
                     messagea = "\n코인명 :::: "+coinName+"\n현재가격>>"+str(curPrice)+"\nMA5>>"+str(MA5)+"\nMA14>>"+str(MA14)+"\n변동성지수 기준가격 ::::"+str(basicPriceValue)+"\n차이(변동성-현재가) ::::"+str(curPrice-basicPriceValue)+"\n현재가격>>"+str(curPrice) +"\n당시가격>>"+str(prebuyAndSellresult)
                     CoinUtill().send_message("[[[[tangs 코인 서칭중... ]]]]"+messagea)
