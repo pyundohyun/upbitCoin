@@ -286,7 +286,7 @@ class CoinEvent:
             page = 1
             while True:
                 orders = client.Order.Order_info_all(page=page, limit=100, states=["done", "cancel"])['result']
-                sleep(1.5)
+                sleep(2)
                 _order_info_all = _order_info_all + orders
                 page += 1
                 if len(orders) < 100:
@@ -351,6 +351,8 @@ class CoinEvent:
 
     #해당코인의 마지막 매수값을 가져옴 - 매도후 또사는경우가 있어서 비교 위한차원
     def getSellCoinPaymentList(self,coinName):
+        returnVal = 0
+
         try:
             log = Log().initLogger()
 
@@ -377,7 +379,7 @@ class CoinEvent:
             page = 1
             while True:
                 orders = client.Order.Order_info_all(page=page, limit=100, states=["done", "cancel"])['result']
-                sleep(1.5)
+                sleep(2)
                 _order_info_all = _order_info_all + orders
                 page += 1
                 if len(orders) < 100:
@@ -435,7 +437,7 @@ class CoinEvent:
                 #print(order_history_df["거래단가"][0])
                 returnVal = order_history_df["거래단가"][0]
             else:
-                returnVal = 999999
+                returnVal = 0 
 
         except Exception as Err:
                     log.debug('[[[[[[Error]]]]]] getSellCoinPaymentList Error>>>'+str(Err))
