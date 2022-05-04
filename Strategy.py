@@ -162,7 +162,7 @@ class Strategy:
             # CoinUtill().send_message("거래대금"+str(vol24))
 
             #500억 이상 누적 거래대금
-            if(diffPercent > -3.0 and diffPercent <= 10 and vol24 >= 40000000000):
+            if(diffPercent > -3.0 and diffPercent <= 10 and vol24 >= 20000000000):
             #if(firstClose < curClose and firstVolume*1.2 < curVolume):
                 #log.debug('get_bigShort_coinList 급등할예정 높음')
                 #log.debug('coinName >>'+coinName)

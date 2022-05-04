@@ -96,7 +96,7 @@ async def findCoin():
             for item in tickers:
                 # 400억 이상 누적 거래대금 + -7 ~ 10 전일대비  or 보유코인
                 if(await Strategy.get_bigShort_coinList(item)):
-                   CoinUtill.send_message("[[[[[[[[[ 1차 통과 코인::: "+str(item)+"]]]]]]]]]")
+                   #CoinUtill.send_message("[[[[[[[[[ 1차 통과 코인::: "+str(item)+"]]]]]]]]]")
                    Strategy.goBuyCoin(item)
 
 #        log.debug("  ")
