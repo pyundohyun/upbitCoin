@@ -352,16 +352,13 @@ class CoinEvent:
     def getSellCoinPaymentList(self,coinName):
         returnVal = 0
         log = Log().initLogger()
-
+        
         try :  
             # 유틸값 가져옴 
             utilInfo = CoinUtill()        
             
             access_key = utilInfo.get_accessKey()
             secret_key = utilInfo.get_secretKey()
-
-            curTime = (datetime.today()).strftime("%Y%m%d")+str("0900")
-            beforeTime = (datetime.today() - timedelta(1)).strftime("%Y%m%d")+str("0900")
             
             #upbit.client 라는 것으로 추출 -> uuid 빼내서 재요청해야 정상적인 값을 가져온다,.  
             client = Upbit(access_key, secret_key) 
@@ -430,10 +427,18 @@ class CoinEvent:
                 order_history_df = pandas.concat([order_history_df, df], ignore_index=True)
                 order_history_df.sort_values(by=['마켓'])
                 #df.to_excel(tomorrowTime+".xlsx") 
-                #print(order_history_df["거래단가"][0])
-                returnVal = order_history_df["거래단가"][0]
+                
+                lastOrderDt = datetime.strptime(order_history_df["주문시간"][0][0:10].replace('-',''),"%Y%m%d")
+                now = datetime.now()
+                dayDiff = (now - lastOrderDt).days
+                            
+                #이전에 구매했던 코인 가격 비교를 일주일까지 봄, 이이상은 올랐다고 판단 그가격에 사기로
+                if(dayDiff > 7):
+                    returnVal = 999999
+                else :
+                    returnVal = order_history_df["거래단가"][0]
             else :
-                returnVal = 0
+                returnVal = 999999
 
         except Exception as Err:
             log.debug('[[[[[[Error]]]]]] getSellCoinPaymentList Error>>>'+str(Err))  
