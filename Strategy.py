@@ -698,12 +698,12 @@ class Strategy:
                     #100이하는 0.5 차이면 삼
                 if(curPrice < 100 and curPrice >= 1):
                         #if(diff <= 0.05):
-                            if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14 and basicFlag):
+                            if(curPrice > MA14 and MA5 >= MA14 and basicFlag):
                                 CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
                     #100 이상은 5차이나면 삼 
                 elif(curPrice >= 100) :
                         #if(diff <= 2):
-                            if(curPrice > MA5 and curPrice > MA14 and MA5 >= MA14 and basicFlag):
+                            if(curPrice > MA14 and MA5 >= MA14 and basicFlag):
                                 #시장가로 주문
                                 CoinEvent().buyAndGazzza(coinName,"bid",orderVolumn,self.get_order_coin_price(),"price")
 
